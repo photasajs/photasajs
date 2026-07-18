@@ -33,7 +33,7 @@
         "@types/fs-extra": "11.0.1",
         "@types/node": "^18.19.115",
         "typescript": "^5.9.2",
-        "vite": "^6.3.5",
+        "vite": "^6.4.3",
         "vite-plugin-dts": "^3.9.1",
         "vitest": "^4.0.16"
     }
