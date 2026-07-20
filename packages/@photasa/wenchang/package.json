@@ -32,11 +32,11 @@
     },
     "devDependencies": {
         "@types/fs-extra": "^11.0.1",
-        "@types/node": "^20.11.24",
+        "@types/node": "^26.1.1",
         "@vitest/coverage-v8": "^4.0.16",
-        "typescript": "^5.3.3",
-        "vite": "^6.3.5",
-        "vite-plugin-dts": "^3.9.1",
+        "typescript": "^7.0.2",
+        "vite": "^8.1.5",
+        "vite-plugin-dts": "^5.0.3",
         "vitest": "^4.0.16"
     }
 }
