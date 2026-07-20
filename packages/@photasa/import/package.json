@@ -37,12 +37,12 @@
         "@types/fs-extra": "^11.0.1",
         "@types/node": "^18.16.0",
         "@vitejs/plugin-vue": "^5.0.0",
-        "@vitest/coverage-v8": "^1.0.0",
+        "@vitest/coverage-v8": "^4.1.10",
         "eslint": "^8.39.0",
         "rimraf": "^5.0.0",
         "typescript": "^5.0.4",
         "vite": "^5.0.0",
         "vite-plugin-dts": "^3.0.0",
-        "vitest": "^1.0.0"
+        "vitest": "^4.1.10"
     }
 }
