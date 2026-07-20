@@ -33,6 +33,6 @@
         "typescript": "^5.0.4",
         "vite": "^5.0.0",
         "vite-plugin-dts": "^3.0.0",
-        "vitest": "^1.0.0"
+        "vitest": "^4.1.10"
     }
 }
