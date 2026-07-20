@@ -185,7 +185,7 @@
         "memfs": "^3.5.1",
         "mock-fs": "^5.2.0",
         "ora": "^9.0.0",
-        "pinia": "^2.1.6",
+        "pinia": "^4.0.2",
         "pinia-plugin-persistedstate": "3.1.0",
         "postcss": "^8.5.6",
         "prettier": "^3.2.5",
