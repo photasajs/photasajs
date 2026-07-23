@@ -10,6 +10,7 @@ members = [
 
 [patch.crates-io]
 libheif-sys = { path = "crates/libheif-sys" }
+ffmpeg-sys-next = { path = "crates/ffmpeg-sys-next" }
 
 [workspace.dependencies]
 serde = { version = "1", features = ["derive"] }

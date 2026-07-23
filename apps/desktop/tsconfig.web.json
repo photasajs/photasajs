@@ -25,7 +25,8 @@
             "@/*": ["./src/renderer/src/*"],
             "@renderer/*": ["./src/renderer/src/*"],
             "@preload/*": ["./src/preload/*"],
-            "@shared/*": ["./src/shared/*"]
+            "@shared/*": ["./src/shared/*"],
+            "json-tree-view-vue3": ["./src/renderer/src/types/json-tree-view-vue3.ts"]
         }
     }
 }

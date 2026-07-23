@@ -4,7 +4,7 @@
     "description": "Photasa - Tauri-based photo manager",
     "type": "module",
     "scripts": {
-        "dev": "tauri dev",
+        "dev": "node ./scripts/tauri-dev.mjs",
         "vite:dev": "vite",
         "vite:build": "vite build",
         "build": "tauri build",
@@ -16,6 +16,7 @@
         "test:unit:api": "vitest run --config vitest.config.ts src/api/__tests__"
     },
     "dependencies": {
+        "@photasa/common": "workspace:*",
         "@headlessui/vue": "^1.7.23",
         "@phosphor-icons/vue": "^2.2.1",
         "@systembug/diting": "^0.0.7",

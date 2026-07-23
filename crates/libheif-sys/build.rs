@@ -10,20 +10,41 @@ fn main() {
     println!("cargo:rerun-if-changed=build.rs");
     println!("cargo:rerun-if-changed=wrapper.h");
 
-    // Tell cargo to tell rustc to link the heif library.
+    #[cfg(all(feature = "embedded-libheif", target_os = "windows", target_env = "msvc"))]
+    {
+        let _include_paths = link_embedded_libheif_msvc();
+        #[cfg(feature = "use-bindgen")]
+        run_bindgen(&include_paths);
+        return;
+    }
+
+    #[cfg(all(
+        feature = "embedded-libheif",
+        not(all(target_os = "windows", target_env = "msvc"))
+    ))]
+    {
+        let include_paths = find_libheif();
+        #[cfg(feature = "use-bindgen")]
+        run_bindgen(&include_paths);
+        return;
+    }
+
+    #[cfg(all(
+        not(feature = "embedded-libheif"),
+        target_os = "windows",
+        target_env = "msvc"
+    ))]
+    {
+        install_libheif_by_vcpkg();
+        return;
+    }
 
     #[cfg(not(all(target_os = "windows", target_env = "msvc")))]
-    #[allow(unused_variables)]
-    let include_paths = find_libheif();
-
-    #[cfg(all(target_os = "windows", target_env = "msvc"))]
-    #[allow(unused_variables)]
-    let include_paths: Vec<String> = Vec::new();
-    #[cfg(all(target_os = "windows", target_env = "msvc"))]
-    install_libheif_by_vcpkg();
-
-    #[cfg(feature = "use-bindgen")]
-    run_bindgen(&include_paths);
+    {
+        let include_paths = find_libheif();
+        #[cfg(feature = "use-bindgen")]
+        run_bindgen(&include_paths);
+    }
 }
 
 #[allow(dead_code)]
@@ -92,6 +113,13 @@ fn compile_libheif() -> String {
     let mut build_config = cmake::Config::new(libheif_dir);
     build_config.out_dir(out_path.join("libheif_build"));
     build_config.define("CMAKE_INSTALL_LIBDIR", "lib");
+
+    #[cfg(target_env = "msvc")]
+    {
+        // Always build Release + /MD so the static lib matches Rust's default MSVC runtime.
+        build_config.profile("Release");
+        build_config.define("CMAKE_MSVC_RUNTIME_LIBRARY", "MultiThreadedDLL");
+    }
 
     // Disable some options
     for key in [
@@ -184,6 +212,21 @@ fn compile_libheif() -> String {
         .join("lib/pkgconfig")
         .to_string_lossy()
         .to_string()
+}
+
+/// Windows MSVC: build vendored libheif via CMake (no vcpkg).
+#[cfg(all(feature = "embedded-libheif", target_os = "windows", target_env = "msvc"))]
+fn link_embedded_libheif_msvc() -> Vec<String> {
+    let _pc_dir = compile_libheif();
+    let out_path = PathBuf::from(std::env::var("OUT_DIR").unwrap());
+    let libheif_build = out_path.join("libheif_build");
+    let lib_dir = libheif_build.join("lib");
+    let include_dir = libheif_build.join("include");
+
+    println!("cargo:rustc-link-search=native={}", lib_dir.display());
+    println!("cargo:rustc-link-lib=static=heif");
+
+    vec![include_dir.to_string_lossy().to_string()]
 }
 
 #[cfg(not(all(target_os = "windows", target_env = "msvc")))]
