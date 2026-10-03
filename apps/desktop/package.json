@@ -166,7 +166,7 @@
         "commander": "^14.0.1",
         "del-cli": "^6.0.0",
         "docsify-cli": "^4.4.4",
-        "electron": "^38.1.0",
+        "electron": "^41.10.6",
         "electron-builder": "^26.0.20",
         "electron-vite": "^3.1.0",
         "eslint": "^8.0.0",
